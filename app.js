@@ -14,6 +14,7 @@ mongoose.connect('mongodb://localhost/yelpcampdb');
 
 // Project imports
 const Campground = require('./models/campground');
+const Comment = require('./models/comment');
 const seedDB = require('./seeds');
 
 // Seed the database
@@ -29,14 +30,14 @@ app.get('/campgrounds', (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      res.render('index', {campgrounds: campgrounds});
+      res.render('campgrounds/index', {campgrounds: campgrounds});
     }
   });
 });
 
 // Campgrounds New route
 app.get('/campgrounds/new', (req, res) => {
-  res.render('new.ejs');
+  res.render('campgrounds/new.ejs');
 });
 
 // Campgrounds Create route
@@ -64,7 +65,44 @@ app.get('/campgrounds/:id', (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      res.render('show', {campground: campground});
+      res.render('campgrounds/show', {campground: campground});
+    }
+  });
+});
+
+// ==================
+// Comments routes
+// ==================
+// Comments New route
+app.get('/campgrounds/:id/comments/new', (req, res) => {
+  Campground.findById(req.params.id, (err, campground) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render('comments/new.ejs', {campground});
+    }
+  });
+});
+
+// Comments Create route
+app.post('/campgrounds/:id/comments', (req, res) => {
+  // get campground to add comment to
+  Campground.findById(req.params.id, (err, campground) => {
+    if (err) {
+      console.log(err);
+      res.redirect('/campgrounds');
+    } else {
+      // campground found so add new comment to the DB
+      Comment.create(req.body.comment, (err, comment) => {
+        if (err) {
+          console.log(err);
+        } else {
+          // add comment to campground and save
+          campground.comments.push(comment);
+          campground.save();
+          res.redirect(`/campgrounds/${campground._id}`);
+        }
+      });
     }
   });
 });
