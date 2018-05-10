@@ -1,23 +1,19 @@
+// Packages
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+// App config
 const app = express();
-
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
+const port = process.env.PORT || 3000;
 
+// Db config
 mongoose.connect('mongodb://localhost/yelpcampdb');
 
-// SCHEMA SETUP
-const campgroundSchema = new mongoose.Schema({
-  name: String,
-  image: String,
-  description: String
-});
-
-// create the model
-const Campground = mongoose.model('Campground', campgroundSchema);
+// Model imports
+const Campground = require('./models/campground');
 
 // Campground.create({
 //   name: 'Lima Escape',
@@ -35,7 +31,7 @@ const Campground = mongoose.model('Campground', campgroundSchema);
 // ROUTES
 app.get('/', (req, res) => res.render('landing'));
 
-// INDEX
+// Campgrounds Index route
 app.get('/campgrounds', (req, res) => {
   // get campgrounds from DB
   Campground.find({}, (err, campgrounds) => {
@@ -47,12 +43,12 @@ app.get('/campgrounds', (req, res) => {
   });
 });
 
-// NEW
+// Campgrounds New route
 app.get('/campgrounds/new', (req, res) => {
   res.render('new.ejs');
 });
 
-// CREATE
+// Campgrounds Create route
 app.post('/campgrounds', (req, res) => {
   if (!req.body) {
     return res.sendStatus('400');
@@ -70,7 +66,7 @@ app.post('/campgrounds', (req, res) => {
   });
 });
 
-// SHOW
+// Campgrounds Show route
 app.get('/campgrounds/:id', (req, res) => {
   // get campground from db
   Campground.findById(req.params.id, (err, campground) => {
@@ -82,5 +78,5 @@ app.get('/campgrounds/:id', (req, res) => {
   });
 });
 
-// START SERVER
-app.listen(3000, () => console.log('Yelp Camp server listening on port 3000'));
+// Start server
+app.listen(3000, () => console.log(`Yelp Camp server listening on port ${port}`));
