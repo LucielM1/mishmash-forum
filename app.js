@@ -52,12 +52,12 @@ app.get('/campgrounds', (req, res) => {
 });
 
 // Campgrounds New route
-app.get('/campgrounds/new', (req, res) => {
-  res.render('campgrounds/new.ejs');
+app.get('/campgrounds/new', isLoggedIn, (req, res) => {
+  res.render('campgrounds/new');
 });
 
 // Campgrounds Create route
-app.post('/campgrounds', (req, res) => {
+app.post('/campgrounds', isLoggedIn, (req, res) => {
   if (!req.body) {
     return res.sendStatus('400');
   }
@@ -69,7 +69,7 @@ app.post('/campgrounds', (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      res.redirect('campgrounds');
+      res.redirect('/campgrounds');
     }
   });
 });
@@ -90,18 +90,18 @@ app.get('/campgrounds/:id', (req, res) => {
 // Comments routes
 // ==================
 // Comments New route
-app.get('/campgrounds/:id/comments/new', (req, res) => {
+app.get('/campgrounds/:id/comments/new', isLoggedIn, (req, res) => {
   Campground.findById(req.params.id, (err, campground) => {
     if (err) {
       console.log(err);
     } else {
-      res.render('comments/new.ejs', {campground});
+      res.render('comments/new', {campground});
     }
   });
 });
 
 // Comments Create route
-app.post('/campgrounds/:id/comments', (req, res) => {
+app.post('/campgrounds/:id/comments', isLoggedIn, (req, res) => {
   // get campground to add comment to
   Campground.findById(req.params.id, (err, campground) => {
     if (err) {
@@ -126,6 +126,7 @@ app.post('/campgrounds/:id/comments', (req, res) => {
 // ==================
 // Auth routes
 // ==================
+// Register
 app.get('/register', (req, res) => res.render('register'));
 
 app.post('/register', (req, res) => {
@@ -138,6 +139,29 @@ app.post('/register', (req, res) => {
     passport.authenticate('local')(req, res, () => res.redirect('/campgrounds'));
   });
 });
+
+// Login
+app.get('/login', (req, res) => res.render('login'));
+
+app.post('/login', passport.authenticate('local', {
+  successRedirect: '/campgrounds',
+  failureRedirect: '/login'
+}), (req, res) => {
+  // do nothing for now
+});
+
+app.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/campgrounds');
+});
+
+// middleware to check if user is authenticated
+function isLoggedIn (req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login');
+}
 
 // Start server
 app.listen(port, () => console.log(`Yelp Camp server listening on port ${port}`));
