@@ -33,6 +33,12 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// middleware to make currentUser available to all routes
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user; // req.user is an authenticated user
+  next();
+});
+
 // Seed the database
 seedDB();
 
