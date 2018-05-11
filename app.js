@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
+app.use(express.static(`${__dirname}/public`));
 const port = process.env.PORT || 3000;
 
 // Db config
