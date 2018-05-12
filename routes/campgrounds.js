@@ -100,7 +100,7 @@ function ensureCampgroundAuthor (req, res, next) {
         if (campground.author.id.equals(req.user._id)) {
           return next();
         } else {
-          res.send('No permission!');
+          res.redirect('back');
         }
       }
     });
