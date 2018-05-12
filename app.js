@@ -48,7 +48,7 @@ app.use('/campgrounds', campgroundsRoutes);
 app.use('/campgrounds/:id/comments', commentsRoutes);
 
 // Seed the database
-seedDB();
+// seedDB();
 
 // Start server
 app.listen(port, () => console.log(`Yelp Camp server listening on port ${port}`));

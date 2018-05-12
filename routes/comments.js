@@ -4,7 +4,7 @@ const Campground = require('../models/campground');
 const Comment = require('../models/comment');
 
 // New
-router.get('/new', isLoggedIn, (req, res) => {
+router.get('/new', ensureAuthenticated, (req, res) => {
   Campground.findById(req.params.id, (err, campground) => {
     if (err) {
       console.log(err);
@@ -15,7 +15,7 @@ router.get('/new', isLoggedIn, (req, res) => {
 });
 
 // Create
-router.post('/', isLoggedIn, (req, res) => {
+router.post('/', ensureAuthenticated, (req, res) => {
   // get campground to add comment to
   Campground.findById(req.params.id, (err, campground) => {
     if (err) {
@@ -43,7 +43,7 @@ router.post('/', isLoggedIn, (req, res) => {
 });
 
 // middleware to check if user is authenticated
-function isLoggedIn (req, res, next) {
+function ensureAuthenticated (req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }

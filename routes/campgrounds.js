@@ -15,10 +15,10 @@ router.get('/', (req, res) => {
 });
 
 // New
-router.get('/new', isLoggedIn, (req, res) => res.render('campgrounds/new'));
+router.get('/new', ensureAuthenticated, (req, res) => res.render('campgrounds/new'));
 
 // Create
-router.post('/', isLoggedIn, (req, res) => {
+router.post('/', ensureAuthenticated, (req, res) => {
   if (!req.body) {
     return res.sendStatus('400');
   }
@@ -52,18 +52,14 @@ router.get('/:id', (req, res) => {
 });
 
 // Edit
-router.get('/:id/edit', isLoggedIn, (req, res) => {
+router.get('/:id/edit', ensureCampgroundAuthor, (req, res) => {
   Campground.findById(req.params.id, (err, campground) => {
-    if (err) {
-      res.redirect('/campgrounds');
-    } else {
-      res.render('campgrounds/edit', {campground: campground});
-    }
+    res.render('campgrounds/edit', {campground: campground});
   });
 });
 
 // Update
-router.put('/:id', isLoggedIn, (req, res) => {
+router.put('/:id', ensureCampgroundAuthor, (req, res) => {
   // TODO: sanitize possible html input?
   // req.body.campground.description = req.sanitize(req.body.campground.description);
   Campground.findByIdAndUpdate(req.params.id, req.body.campground, (err, campground) => {
@@ -76,7 +72,7 @@ router.put('/:id', isLoggedIn, (req, res) => {
 });
 
 // Destroy
-router.delete('/:id', isLoggedIn, (req, res) => {
+router.delete('/:id', ensureCampgroundAuthor, (req, res) => {
   Campground.findByIdAndRemove(req.params.id, err => {
     if (err) {
       res.send(err);
@@ -86,12 +82,32 @@ router.delete('/:id', isLoggedIn, (req, res) => {
   });
 });
 
-// middleware to check if user is authenticated
-function isLoggedIn (req, res, next) {
+// middleware functions
+function ensureAuthenticated (req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
   res.redirect('/login');
+}
+
+function ensureCampgroundAuthor (req, res, next) {
+  if (req.isAuthenticated()) {
+    Campground.findById(req.params.id, (err, campground) => {
+      if (err) {
+        res.redirect('back');
+      } else {
+        // is user the campground's author?
+        if (campground.author.id.equals(req.user._id)) {
+          return next();
+        } else {
+          res.send('No permission!');
+        }
+      }
+    });
+  // not authenticated
+  } else {
+    res.redirect('back');
+  }
 }
 
 module.exports = router;
