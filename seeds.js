@@ -15,7 +15,7 @@ const data = [
   {
     name: 'Le Clos du Lac',
     image: 'http://mb.web.sapo.io/c6b2e340412aab2a4a70738c7458f9c68b51ec56.jpg&W=1680&H=790&delay_optim=1&tv=2',
-    description: 'A popular destination in France thanks to its high levels of sunshine, the diversity of its landscapes and its cultural heritage.'
+    description: 'This camsite is located in Saint-Apollinaire in the Hautes-Alpes, in Provence-Alpes-Côte d\'Azur, a popular destination in France thanks to its high levels of sunshine, the diversity of its landscapes and its cultural heritage. It is located at 50 m from the lake 1.'
   },
   {
     name: 'Camp Liza',

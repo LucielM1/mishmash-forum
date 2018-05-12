@@ -37,7 +37,7 @@ router.get('/logout', (req, res) => {
 });
 
 // middleware to check if user is authenticated
-function isLoggedIn (req, res, next) {
+function ensureAuthenticated (req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
