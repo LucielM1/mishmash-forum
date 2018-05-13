@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router({mergeParams: true});
 const Campground = require('../models/campground');
 const Comment = require('../models/comment');
+const middleware = require('../middleware');
 
 // New
-router.get('/new', ensureAuthenticated, (req, res) => {
+router.get('/new', middleware.ensureAuthenticated, (req, res) => {
   Campground.findById(req.params.id, (err, campground) => {
     if (err) {
       console.log(err);
@@ -15,7 +16,7 @@ router.get('/new', ensureAuthenticated, (req, res) => {
 });
 
 // Create
-router.post('/', ensureAuthenticated, (req, res) => {
+router.post('/', middleware.ensureAuthenticated, (req, res) => {
   // get campground to add comment to
   Campground.findById(req.params.id, (err, campground) => {
     if (err) {
@@ -43,7 +44,7 @@ router.post('/', ensureAuthenticated, (req, res) => {
 });
 
 // Edit
-router.get('/:comment_id/edit', ensureCommentAuthor, (req, res) => {
+router.get('/:comment_id/edit', middleware.ensureCommentAuthor, (req, res) => {
   Comment.findById(req.params.comment_id, (err, comment) => {
     if (err) {
       res.redirect('back');
@@ -54,7 +55,7 @@ router.get('/:comment_id/edit', ensureCommentAuthor, (req, res) => {
 });
 
 // Update
-router.put('/:comment_id', ensureCommentAuthor, (req, res) => {
+router.put('/:comment_id', middleware.ensureCommentAuthor, (req, res) => {
   // TODO: sanitize possible html input?
   // req.body.campground.description = req.sanitize(req.body.campground.description);
   Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, (err, comment) => {
@@ -67,7 +68,7 @@ router.put('/:comment_id', ensureCommentAuthor, (req, res) => {
 });
 
 // Destroy
-router.delete('/:comment_id', ensureCommentAuthor, (req, res) => {
+router.delete('/:comment_id', middleware.ensureCommentAuthor, (req, res) => {
   Comment.findByIdAndRemove(req.params.comment_id, err => {
     if (err) {
       res.send(err);
@@ -76,33 +77,5 @@ router.delete('/:comment_id', ensureCommentAuthor, (req, res) => {
     }
   });
 });
-
-// middleware functions
-function ensureAuthenticated (req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/login');
-}
-
-function ensureCommentAuthor (req, res, next) {
-  if (req.isAuthenticated()) {
-    Comment.findById(req.params.comment_id, (err, comment) => {
-      if (err) {
-        res.redirect('back');
-      } else {
-        // is user the comment's author?
-        if (comment.author.id.equals(req.user._id)) {
-          return next();
-        } else {
-          res.redirect('back');
-        }
-      }
-    });
-  // not authenticated
-  } else {
-    res.redirect('back');
-  }
-}
 
 module.exports = router;
