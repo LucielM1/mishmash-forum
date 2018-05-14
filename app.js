@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
+const moment = require('moment');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 
@@ -21,6 +22,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(`${__dirname}/public`));
 app.use(methodOverride('_method'));
 app.use(flash());
+app.locals.moment = moment;
 const port = process.env.PORT || 3000;
 
 // Db config
