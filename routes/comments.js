@@ -7,9 +7,9 @@ const middleware = require('../middleware');
 // New
 router.get('/new', middleware.ensureAuthenticated, (req, res) => {
   Campground.findById(req.params.id, (err, campground) => {
-    if (err) {
+    if (err || !campground) {
       req.flash('error', 'Couldn\'t retrieve campground.');
-      res.redirect('back');
+      res.redirect('/campgrounds');
     } else {
       res.render('comments/new', {campground});
     }
@@ -20,7 +20,7 @@ router.get('/new', middleware.ensureAuthenticated, (req, res) => {
 router.post('/', middleware.ensureAuthenticated, (req, res) => {
   // get campground to add comment to
   Campground.findById(req.params.id, (err, campground) => {
-    if (err) {
+    if (err || !campground) {
       req.flash('error', 'Couldn\'t retrieve campground.');
       res.redirect('/campgrounds');
     } else {
@@ -47,19 +47,14 @@ router.post('/', middleware.ensureAuthenticated, (req, res) => {
 });
 
 // Edit
-router.get('/:comment_id/edit', middleware.ensureCommentAuthor, (req, res) => {
-  Comment.findById(req.params.comment_id, (err, comment) => {
-    if (err) {
-      req.flash('error', 'Couldn\'t retrieve comment.');
-      res.redirect('back');
-    } else {
-      res.render('comments/edit', {campgroundId: req.params.id, comment: comment});
-    }
-  });
+router.get('/:comment_id/edit', middleware.ensureAuthenticated, middleware.ensureCampgroundExists, middleware.ensureCommentAuthor, (req, res) => {
+  // first call to ensureCampgroundExists to avoid campground id tampering in url
+  // ensureCommentAuthor places retrieved comment in req.campground so no need for 2nd db roundtrip
+  res.render('comments/edit', {campgroundId: req.params.id, comment: req.comment});
 });
 
 // Update
-router.put('/:comment_id', middleware.ensureCommentAuthor, (req, res) => {
+router.put('/:comment_id', middleware.ensureAuthenticated, middleware.ensureCommentAuthor, (req, res) => {
   // TODO: sanitize possible html input?
   // req.body.campground.description = req.sanitize(req.body.campground.description);
   Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, (err, comment) => {
@@ -74,7 +69,7 @@ router.put('/:comment_id', middleware.ensureCommentAuthor, (req, res) => {
 });
 
 // Destroy
-router.delete('/:comment_id', middleware.ensureCommentAuthor, (req, res) => {
+router.delete('/:comment_id', middleware.ensureAuthenticated, middleware.ensureCommentAuthor, (req, res) => {
   Comment.findByIdAndRemove(req.params.comment_id, err => {
     if (err) {
       req.flash('error', 'Couldn\'t delete comment.');

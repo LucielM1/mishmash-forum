@@ -45,24 +45,22 @@ router.post('/', middleware.ensureAuthenticated, (req, res) => {
 router.get('/:id', (req, res) => {
   // get campground from db
   Campground.findById(req.params.id).populate('comments').exec((err, campground) => {
-    if (err) {
+    if (err || !campground) {
       req.flash('error', 'Couldn\'t retrieve campground.');
-      res.redirect('/campgrounds');
-    } else {
-      res.render('campgrounds/show', {campground: campground});
+      return res.redirect('/campgrounds');
     }
+    res.render('campgrounds/show', {campground: campground});
   });
 });
 
 // Edit
-router.get('/:id/edit', middleware.ensureCampgroundAuthor, (req, res) => {
-  Campground.findById(req.params.id, (err, campground) => {
-    res.render('campgrounds/edit', {campground: campground});
-  });
+router.get('/:id/edit', middleware.ensureAuthenticated, middleware.ensureCampgroundAuthor, (req, res) => {
+  // ensureCampgroundAuthor places retrieved campground in req.campground so no need for 2nd db roundtrip
+  res.render('campgrounds/edit', {campground: req.campground});
 });
 
 // Update
-router.put('/:id', middleware.ensureCampgroundAuthor, (req, res) => {
+router.put('/:id', middleware.ensureAuthenticated, middleware.ensureCampgroundAuthor, (req, res) => {
   // TODO: sanitize possible html input?
   // req.body.campground.description = req.sanitize(req.body.campground.description);
   Campground.findByIdAndUpdate(req.params.id, req.body.campground, (err, campground) => {
@@ -76,7 +74,8 @@ router.put('/:id', middleware.ensureCampgroundAuthor, (req, res) => {
 });
 
 // Destroy
-router.delete('/:id', middleware.ensureCampgroundAuthor, (req, res) => {
+router.delete('/:id', middleware.ensureAuthenticated, middleware.ensureCampgroundAuthor, (req, res) => {
+  // TODO: delete comments
   Campground.findByIdAndRemove(req.params.id, err => {
     if (err) {
       req.flash('error', 'Couldn\'t delete campground.');
