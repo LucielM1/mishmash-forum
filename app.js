@@ -43,6 +43,7 @@ app.use((req, res, next) => {
   res.locals.currentUser = req.user; // req.user is an authenticated user
   res.locals.successMessages = req.flash('success');
   res.locals.errorMessages = req.flash('error');
+  res.locals.isLanding = false;
   next();
 });
 

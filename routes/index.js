@@ -5,7 +5,7 @@ const User = require('../models/user');
 const middleware = require('../middleware');
 
 // Root
-router.get('/', (req, res) => res.render('landing'));
+router.get('/', (req, res) => res.render('landing', {isLanding: true}));
 
 // Register
 router.get('/register', middleware.ensureNotAuthenticated, (req, res) => res.render('register'));
