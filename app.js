@@ -1,8 +1,9 @@
 // Packages
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 const methodOverride = require('method-override');
+const mongoose = require('mongoose');
+const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 
@@ -19,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use(express.static(`${__dirname}/public`));
 app.use(methodOverride('_method'));
+app.use(flash());
 const port = process.env.PORT || 3000;
 
 // Db config
@@ -39,6 +41,8 @@ passport.deserializeUser(User.deserializeUser());
 // middleware to make currentUser available to all routes
 app.use((req, res, next) => {
   res.locals.currentUser = req.user; // req.user is an authenticated user
+  res.locals.successMessages = req.flash('success');
+  res.locals.errorMessages = req.flash('error');
   next();
 });
 

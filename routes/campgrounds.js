@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
   // get campgrounds from DB
   Campground.find({}, (err, campgrounds) => {
     if (err) {
-      console.log(err);
+      console.log(err); // TODO: refactor error
     } else {
       res.render('campgrounds/index', {campgrounds: campgrounds});
     }
@@ -33,10 +33,11 @@ router.post('/', middleware.ensureAuthenticated, (req, res) => {
   // add new campground to the DB
   Campground.create({name, image, description, author}, (err, campground) => {
     if (err) {
-      console.log(err);
+      req.flash('error', 'Couldn\'t add campground.');
     } else {
-      res.redirect('/campgrounds');
+      req.flash('success', 'Campground added successfully.');
     }
+    res.redirect('/campgrounds');
   });
 });
 
@@ -45,7 +46,8 @@ router.get('/:id', (req, res) => {
   // get campground from db
   Campground.findById(req.params.id).populate('comments').exec((err, campground) => {
     if (err) {
-      console.log(err);
+      req.flash('error', 'Couldn\'t retrieve campground.');
+      res.redirect('/campgrounds');
     } else {
       res.render('campgrounds/show', {campground: campground});
     }
@@ -65,10 +67,11 @@ router.put('/:id', middleware.ensureCampgroundAuthor, (req, res) => {
   // req.body.campground.description = req.sanitize(req.body.campground.description);
   Campground.findByIdAndUpdate(req.params.id, req.body.campground, (err, campground) => {
     if (err) {
-      res.redirect('/campgrounds');
+      req.flash('error', 'Couldn\'t update campground.');
     } else {
-      res.redirect(`/campgrounds/${campground._id}`); // or req.params.id
+      req.flash('success', 'Campground updated successfully.');
     }
+    res.redirect(`/campgrounds/${campground._id}`); // or req.params.id
   });
 });
 
@@ -76,10 +79,11 @@ router.put('/:id', middleware.ensureCampgroundAuthor, (req, res) => {
 router.delete('/:id', middleware.ensureCampgroundAuthor, (req, res) => {
   Campground.findByIdAndRemove(req.params.id, err => {
     if (err) {
-      res.send(err);
+      req.flash('error', 'Couldn\'t delete campground.');
     } else {
-      res.redirect(`/campgrounds/`);
+      req.flash('success', 'Campground deleted successfully.');
     }
+    res.redirect('/campgrounds');
   });
 });
 

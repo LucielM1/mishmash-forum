@@ -34,3 +34,16 @@
       </div>
     </div>
   </nav>
+
+<div class="container">
+  <% if (successMessages && successMessages.length > 0) { %>
+    <div class="alert alert-success" role="alert">
+      <%= successMessages %>
+    </div>
+  <% } %>  
+  <% if (errorMessages && errorMessages.length > 0) { %>
+    <div class="alert alert-danger" role="alert">
+      <%= errorMessages %>
+    </div>
+  <% } %>
+</div>
