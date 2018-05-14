@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
     if (err) {
       console.log(err); // TODO: refactor error
     } else {
-      res.render('campgrounds/index', {campgrounds: campgrounds});
+      res.render('campgrounds/index', {campgrounds: campgrounds, currentPage: 'campgrounds'});
     }
   });
 });

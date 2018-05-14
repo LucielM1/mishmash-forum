@@ -8,7 +8,7 @@ const middleware = require('../middleware');
 router.get('/', (req, res) => res.render('landing', {isLanding: true}));
 
 // Register
-router.get('/register', middleware.ensureNotAuthenticated, (req, res) => res.render('register'));
+router.get('/register', middleware.ensureNotAuthenticated, (req, res) => res.render('register', {currentPage: 'register'}));
 
 router.post('/register', middleware.ensureNotAuthenticated, (req, res) => {
   let user = new User({username: req.body.username});
@@ -25,7 +25,7 @@ router.post('/register', middleware.ensureNotAuthenticated, (req, res) => {
 });
 
 // Login
-router.get('/login', middleware.ensureNotAuthenticated, (req, res) => res.render('login'));
+router.get('/login', middleware.ensureNotAuthenticated, (req, res) => res.render('login', {currentPage: 'login'}));
 
 router.post('/login', middleware.ensureNotAuthenticated, passport.authenticate('local', {
   successRedirect: '/campgrounds',
