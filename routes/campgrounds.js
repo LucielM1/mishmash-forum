@@ -24,7 +24,7 @@ router.post('/', middleware.ensureAuthenticated, (req, res) => {
     return res.sendStatus('400');
   }
   let name = req.body.name;
-  let price = req.body.price;
+  let cost = req.body.cost;
   let image = req.body.image;
   let description = req.body.description;
   let author = {
@@ -32,7 +32,7 @@ router.post('/', middleware.ensureAuthenticated, (req, res) => {
     username: req.user.username
   };
   // add new campground to the DB
-  Campground.create({name, price, image, description, author}, (err, campground) => {
+  Campground.create({name, cost, image, description, author}, (err, campground) => {
     if (err) {
       req.flash('error', 'Couldn\'t add campground.');
     } else {
