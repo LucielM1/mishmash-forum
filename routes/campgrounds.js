@@ -35,7 +35,7 @@ router.get('/', (req, res) => {
   // get all campgrounds from DB
     Campground.find({}, (err, campgrounds) => {
       if (err) {
-        console.log(err); // TODO: refactor error
+        throw err;
       } else {
         res.render('campgrounds/index', {campgrounds: campgrounds, currentPage: 'campgrounds'});
       }

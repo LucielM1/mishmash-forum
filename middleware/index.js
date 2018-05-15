@@ -15,7 +15,7 @@ module.exports.ensureNotAuthenticated = function (req, res, next) {
     return next();
   }
   req.flash('error', 'You need to sign out before doing that.');
-  res.redirect('back');
+  res.redirect('campgrounds');
 };
 
 module.exports.ensureCampgroundExists = function (req, res, next) {

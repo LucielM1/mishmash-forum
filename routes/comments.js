@@ -55,7 +55,6 @@ router.get('/:comment_id/edit', middleware.ensureAuthenticated, middleware.ensur
 
 // Update
 router.put('/:comment_id', middleware.ensureAuthenticated, middleware.ensureCommentAuthor, (req, res) => {
-  // TODO: sanitize possible html input?
   // req.body.campground.description = req.sanitize(req.body.campground.description);
   Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, (err, comment) => {
     if (err) {

@@ -14,7 +14,6 @@ const User = require('./models/user');
 const indexRoutes = require('./routes/index');
 const campgroundsRoutes = require('./routes/campgrounds');
 const commentsRoutes = require('./routes/comments');
-const seedDB = require('./seeds');
 
 // App config
 const app = express();
@@ -55,9 +54,6 @@ app.use((req, res, next) => {
 app.use('/', indexRoutes);
 app.use('/campgrounds', campgroundsRoutes);
 app.use('/campgrounds/:id/comments', commentsRoutes);
-
-// Seed the database
-// seedDB();
 
 // Start server
 app.listen(port, () => console.log(`Yelp Camp server listening on port ${port}`));

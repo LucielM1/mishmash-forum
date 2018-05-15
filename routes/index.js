@@ -29,7 +29,8 @@ router.get('/login', middleware.ensureNotAuthenticated, (req, res) => res.render
 
 router.post('/login', middleware.ensureNotAuthenticated, passport.authenticate('local', {
   successRedirect: '/campgrounds',
-  failureRedirect: '/login'
+  failureRedirect: '/login',
+  failureFlash: true
 }), (req, res) => {
   req.flash('error', 'Couldn\'t sign you in.');
   return res.render('/login');
