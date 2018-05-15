@@ -3,16 +3,33 @@ const router = express.Router();
 const Campground = require('../models/campground');
 const middleware = require('../middleware');
 
+const escapeRegex = text => text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+
 // Index
 router.get('/', (req, res) => {
-  // get campgrounds from DB
-  Campground.find({}, (err, campgrounds) => {
-    if (err) {
-      console.log(err); // TODO: refactor error
-    } else {
-      res.render('campgrounds/index', {campgrounds: campgrounds, currentPage: 'campgrounds'});
-    }
-  });
+  // search was used
+  if (req.query.search) {
+    let regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    Campground.find({name: regex}, (err, campgrounds) => {
+      if (err || !campgrounds) {
+        req.flash('error', 'There was a problem with the search.');
+      }
+      // if no results found, send a message to display in the view
+      let message = 'Couldn\'t find any campground name matching that query.';
+      campgrounds.length === 0
+        ? res.render('campgrounds/index', {campgrounds: campgrounds, currentPage: 'campgrounds', searchMessage: message})
+        : res.render('campgrounds/index', {campgrounds: campgrounds, currentPage: 'campgrounds'});
+    });
+  } else {
+  // get all campgrounds from DB
+    Campground.find({}, (err, campgrounds) => {
+      if (err) {
+        console.log(err); // TODO: refactor error
+      } else {
+        res.render('campgrounds/index', {campgrounds: campgrounds, currentPage: 'campgrounds'});
+      }
+    });
+  }
 });
 
 // New

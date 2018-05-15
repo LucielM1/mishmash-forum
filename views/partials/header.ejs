@@ -41,6 +41,14 @@
                 <li><a href="/logout">Logout</a></li>
               <% } %>
             </ul>
+            <form action="/campgrounds" method="GET" class="navbar-form navbar-right">
+              <div class="input-group">
+                <input type="text" name="search" placeholder="campground name" class="form-control">
+                <span class="input-group-btn">
+                  <button class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+              </div>
+            </form>
           </div>
         </div>
       </nav>
