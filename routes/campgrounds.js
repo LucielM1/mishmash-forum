@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
         req.flash('error', 'There was a problem with the search.');
       }
       // if no results found, send a message to display in the view
-      let message = 'Couldn\'t find any campground name matching that query.';
+      let message = 'Couldn\'t find any campground matching that query.';
       campgrounds.length === 0
         ? res.render('campgrounds/index', {campgrounds: campgrounds, currentPage: 'campgrounds', searchMessage: message})
         : res.render('campgrounds/index', {campgrounds: campgrounds, currentPage: 'campgrounds'});

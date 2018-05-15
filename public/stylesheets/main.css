@@ -20,6 +20,8 @@
 
 body {
   font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  /* background: #efefef; */
 }
 
 /* Landing page styles */
@@ -58,7 +60,8 @@ article.landing {
 }
 
 .landing hr {
-  width: 35%;
+  width: 450px;
+  max-width: 90%;
   border-top: 1px solid #f8f8f8;
   border-bottom: 1px solid rgba(0,0,0,0.2);
 }
@@ -130,6 +133,40 @@ article.landing {
 	opacity: 1;
 }
 /* End landing page styles */
+
+.navbar {
+  border-radius: 0px;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #cec8c8;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #cec8c8;
+}
+
+/* .navbar-inverse {
+    background-color: #2c3e50;
+    border-color: #16161d;
+} */
+.navbar-inverse {
+    background-color: #5e574d;
+    border-color: #5e574d;
+}
+
+/* .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:focus, .navbar-inverse .navbar-nav > .active > a:hover {
+    color: #fff;
+    background-color: #1d2d35;
+} */
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:focus, .navbar-inverse .navbar-nav > .active > a:hover {
+    color: #fff;
+    background-color: #7d6d61;
+}
+
+.jumbotron {
+  color: #0b3618;/* #2c3e50; */
+}
 
 .thumbnail {
   padding: 0px;

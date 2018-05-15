@@ -16,7 +16,7 @@
   <body>
   <% } %>
     <% if (!isLanding) { %>
-      <nav class="navbar navbar-default">
+      <nav class="navbar navbar-inverse">
         <div class="container">
           <!-- Brand and toggle get grouped for better mobile display -->
           <div class="navbar-header">
@@ -34,8 +34,8 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <% if (!currentUser) { %>
-                <li class="<%= typeof currentPage !== 'undefined' && currentPage === 'login' ? 'active' : '' %>"><a href="/login">Sign in</a></li>
-                <li class="<%= typeof currentPage !== 'undefined' && currentPage === 'register' ? 'active' : '' %>"><a href="/register">Sign up</a></li>
+                <li class="<%= typeof currentPage !== 'undefined' && currentPage === 'login' ? 'active' : '' %>"><a href="/login">Sign in <i class="fas fa-user"></i></a></li>
+                <li class="<%= typeof currentPage !== 'undefined' && currentPage === 'register' ? 'active' : '' %>"><a href="/register">Sign up <i class="fas fa-user-plus"></i></a></li>
               <% } else { %>
                 <li ><a href="#">Signed in as <strong><%= currentUser.username %></strong></a></li>
                 <li><a href="/logout">Logout</a></li>
