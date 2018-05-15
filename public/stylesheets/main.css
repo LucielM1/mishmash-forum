@@ -18,13 +18,9 @@
   src: url("../fonts/Montserrat-Medium.otf") format("opentype");
 }
 
-body {
-  font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  /* background: #efefef; */
-}
-
-/* Landing page styles */
+/* =================================== */
+/* ======= Landing page styles ====== */
+/* =================================== */
 article.landing {
   z-index: 1;
   width: 100%;
@@ -134,8 +130,28 @@ article.landing {
 }
 /* End landing page styles */
 
+body {
+  font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  /* background: #efefef; */
+}
+
+header {
+  position: fixed;
+  width: 100%;
+  z-index: 5;
+}
+
+main {
+  position: relative;
+  top: 62px;
+}
+
 .navbar {
   border-radius: 0px;
+  padding-top: 10px;
+  margin-bottom:0px;
+  min-height: 60px;
 }
 
 .navbar-inverse .navbar-brand {
@@ -146,26 +162,28 @@ article.landing {
     color: #cec8c8;
 }
 
-/* .navbar-inverse {
-    background-color: #2c3e50;
-    border-color: #16161d;
-} */
 .navbar-inverse {
     background-color: #5e574d;
     border-color: #5e574d;
 }
 
-/* .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:focus, .navbar-inverse .navbar-nav > .active > a:hover {
-    color: #fff;
-    background-color: #1d2d35;
-} */
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:focus, .navbar-inverse .navbar-nav > .active > a:hover {
     color: #fff;
     background-color: #7d6d61;
 }
 
 .jumbotron {
-  color: #0b3618;/* #2c3e50; */
+  color: white;/* #2c3e50; */
+  background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 0), url(https://images.unsplash.com/photo-1517824806704-9040b037703b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=d95171e276fbd03de651f9aecb64b53d&auto=format&fit=crop&w=1950&q=80%201950w);
+  background-size: cover;
+  background-position: 50% 92%;
+  background-repeat: no-repeat;
+  height: 45rem;
+}
+
+.jumbotron .container {
+  padding-top: 20px;
+  text-align: center;
 }
 
 .thumbnail {
@@ -182,6 +200,19 @@ article.landing {
 
 .form-inline {
   display: inline;
+}
+
+.flash-messages {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 62px;
+  z-index: 2;
+  text-align: center;
+}
+
+.show-campground {
+  margin-top: 12px;
 }
 
 #map {

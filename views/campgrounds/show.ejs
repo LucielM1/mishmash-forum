@@ -1,7 +1,6 @@
 <% include ../partials/header %>
-
   <div class="container">
-    <div class="row">
+    <div class="row show-campground">
       <!-- left section -->
       <section class="col-md-3">
         <p class="lead">YelpCamp</p>
@@ -64,8 +63,8 @@
           <% if (campground.comments.length === 0) { %>
             <em style="color: grey;">No comments yet.</em>
           <% } %>
+          <!--Comments list-->
           <% campground.comments.forEach(comment => { %>
-            <!--Comments list-->
             <div class="row">
               <div class="col-md-12">
                 <strong><span class="glyphicon glyphicon-user" aria-hidden="true"></span><%= comment.author.username %></strong>
