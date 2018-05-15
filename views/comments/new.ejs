@@ -2,8 +2,8 @@
 
   <div class="container">
     <div class="row">
-      <h1 style="text-align: center">Add a new comment to <%= campground.name %></h1>
-      <div style="width: 30%; margin: 25px auto;">
+      <h1 class="text-center">Add a new comment to <%= campground.name %></h1>
+      <section class="form-block">
         <form action="/campgrounds/<%= campground._id %>/comments" method="POST">
           <div class="form-group">
             <input class="form-control" type="text" name="comment[text]" placeholder="text" required>
@@ -11,7 +11,7 @@
           <button class="btn btn-primary btn-lg btn-block">Submit</button>
           <a href="/campgrounds">Back to campgrounds list</a>
         </form>
-      </div>
+      </section>
     </div>
   </div>
 

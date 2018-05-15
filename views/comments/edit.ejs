@@ -2,8 +2,8 @@
 
   <div class="container">
     <div class="row">
-      <h1 style="text-align: center">Edit comment</h1>
-      <div style="width: 30%; margin: 25px auto;">
+      <h1 class="text-center">Edit comment</h1>
+      <section class="form-block">
         <form action="/campgrounds/<%= campgroundId %>/comments/<%= comment._id %>?_method=PUT" method="POST">
           <div class="form-group">
             <input class="form-control" type="text" name="comment[text]" value="<%= comment.text %>" required>
@@ -11,7 +11,7 @@
           <button class="btn btn-primary btn-lg btn-block">Submit</button>
           <a href="/campgrounds">Back to campgrounds list</a>
         </form>
-      </div>
+      </section>
     </div>
   </div>
 

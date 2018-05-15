@@ -1,19 +1,29 @@
 <% include ./partials/header %>
   <div class="container">
     <div class="row">
-      <h1 style="text-align: center">Sign up</h1>
-      <div style="width: 30%; margin: 25px auto;">
+      <h1 class="text-center">Sign up</h1>
+      <section class="form-block">
         <form action="/register" method="POST">
           <div class="form-group">
-            <input class="form-control" type="text" name="username" placeholder="username" required>
+            <label for="input-username">Username</label>
+            <input id="input-username" class="form-control" type="text" name="username" placeholder="username" required>
           </div>
           <div class="form-group">
-            <input class="form-control" type="password" name="password" placeholder="password" required>
+            <label for="input-password">Password</label>
+            <input id="input-password" class="form-control" type="password" name="password" placeholder="password" required>
           </div>
-          <button class="btn btn-primary btn-lg btn-block">Submit</button>
+          <hr>
+          <div class="form-group">
+            <label for="input-admincode">Admin code</label>
+            <input id="input-admincode" class="form-control" type="password" name="admincode" placeholder="Admins only">
+          </div>
+          <div class="form-group">
+            <button class="btn btn-success btn-lg btn-block">Sign up</button>
+          </div>
+          <hr>
           <a href="/campgrounds">Back to campgrounds</a>
         </form>
-    </div>
+      </section>
     </div>
   </div>
 

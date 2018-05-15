@@ -37,7 +37,7 @@
           </div>
           <h4><strong>Comments <span class="glyphicon glyphicon glyphicon-comment" aria-hidden="true"></span></strong></h4>
           <div class="collapse" id="comment-section">
-            <div class="well" style="border-left: 5px solid #00C851;">
+            <div class="well">
               <% if(!currentUser) { %>
                 <h5>You need to sign in before adding a comment. <a href="/login">Click here</a> to sign in.</h5>
               <% } %>
@@ -61,7 +61,7 @@
 
           <hr>
           <% if (campground.comments.length === 0) { %>
-            <em style="color: grey;">No comments yet.</em>
+            <em class="gray">No comments yet.</em>
           <% } %>
           <!--Comments list-->
           <% campground.comments.forEach(comment => { %>
@@ -79,7 +79,7 @@
                   </form>
                   <!--Edit comment form-->
                   <div class="collapse" id="collapseEdit<%= comment._id %>">
-                    <div class="well" style="border-left: 5px solid #ffbb33; margin-top: 15px;">
+                    <div class="well comments-edit-section">
                       <h4>Edit your comment <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></h4>
                       <form id="edit-comment-form<%= comment._id %>" action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
                         <div class="form-group">
@@ -89,7 +89,7 @@
                           <textarea class="form-control" name="comment[text]" placeholder="Your comment text..." form="edit-comment-form<%= comment._id %>" rows="5" cols="70"><%= comment.text %></textarea>
                         </div>
                         <div class="form-group">
-                          <button class="btn btn-success btn-sm">Save <span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button>
+                          <button class="btn btn-success btn-sm">Save</button>
                         </div>
                       </form>
                   </div>

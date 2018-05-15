@@ -136,6 +136,10 @@ body {
   /* background: #efefef; */
 }
 
+body.black-bg {
+  background-color: black;
+}
+
 header {
   position: fixed;
   width: 100%;
@@ -145,6 +149,24 @@ header {
 main {
   position: relative;
   top: 62px;
+}
+
+a {
+  color: #7d6d61;
+}
+
+a:hover {
+  color: #5e574d;
+}
+
+#campgrounds-gallery {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#map {
+  height: 400px;
+  width: 100%;
 }
 
 .navbar {
@@ -198,10 +220,6 @@ main {
   padding: 9px;
 }
 
-.form-inline {
-  display: inline;
-}
-
 .flash-messages {
   position: absolute;
   left: 0;
@@ -215,7 +233,24 @@ main {
   margin-top: 12px;
 }
 
-#map {
-  height: 400px;
-  width: 100%;
+.form-inline {
+  display: inline;
+}
+
+.form-block {
+  width: 30%;
+  margin: 25px auto;
+}
+
+.comments-new-section {
+  border-left: 5px solid #00C851;
+}
+
+.comments-edit-section {
+  border-left: 5px solid #ffbb33;
+  margin-top: 15px;
+}
+
+em.gray {
+  color: gray;
 }
