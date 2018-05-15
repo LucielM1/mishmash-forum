@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Campground = require('../models/campground');
+const Comment = require('../models/comment');
 const middleware = require('../middleware');
 const NodeGeocoder = require('node-geocoder');
 
@@ -117,14 +118,27 @@ router.put('/:id', middleware.ensureAuthenticated, middleware.ensureCampgroundAu
 
 // Destroy
 router.delete('/:id', middleware.ensureAuthenticated, middleware.ensureCampgroundAuthor, (req, res) => {
-  // TODO: delete comments
-  Campground.findByIdAndRemove(req.params.id, err => {
-    if (err) {
-      req.flash('error', 'Couldn\'t delete campground.');
-    } else {
-      req.flash('success', 'Campground deleted successfully.');
+  // req.campground loaded by ensureCampgroundAuthor
+  // delete associated comments
+  Comment.remove({
+    _id: {
+      $in: req.campground.comments
     }
-    res.redirect('/campgrounds');
+  }, err => {
+    if (err) {
+      req.flash('error', `Error removing associated comments.`);
+      res.redirect('back');
+    } else {
+      // delete campground
+      req.campground.remove(err => {
+        if (err) {
+          req.flash('error', 'Couldn\'t delete campground.');
+        } else {
+          req.flash('success', 'Campground deleted successfully.');
+        }
+        res.redirect('/campgrounds');
+      });
+    }
   });
 });
 
