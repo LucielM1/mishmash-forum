@@ -56,10 +56,9 @@ router.post('/', middleware.ensureAuthenticated, (req, res) => {
     username: req.user.username
   };
   geocoder.geocode(req.body.location, (err, data) => {
-    if (err || !data.length) {
-      console.log(err);
-      req.flash('Invalid location.');
-      return res.redirect('back');
+    if (err || data.length === 0) {
+      req.flash('error', 'Invalid location.');
+      return res.redirect('campgrounds');
     }
     let lat = data[0].latitude;
     let lng = data[0].longitude;
@@ -97,7 +96,7 @@ router.get('/:id/edit', middleware.ensureAuthenticated, middleware.ensureCampgro
 // Update
 router.put('/:id', middleware.ensureAuthenticated, middleware.ensureCampgroundAuthor, (req, res) => {
   geocoder.geocode(req.body.campground.location, (err, data) => {
-    if (err || !data.length) {
+    if (err || data.length === 0) {
       req.flash('error', 'Invalid location.');
       return res.redirect('back');
     }
