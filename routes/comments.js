@@ -69,14 +69,26 @@ router.put('/:comment_id', middleware.ensureAuthenticated, middleware.ensureComm
 });
 
 // Destroy
-router.delete('/:comment_id', middleware.ensureAuthenticated, middleware.ensureCommentAuthor, (req, res) => {
-  Comment.findByIdAndRemove(req.params.comment_id, err => {
+router.delete('/:comment_id', middleware.ensureAuthenticated, middleware.ensureCampgroundExists, middleware.ensureCommentAuthor, (req, res) => {
+  // remove comment refs
+  Campground.findByIdAndUpdate(req.params.id, {
+    $pull: {
+      comments: req.comment.id
+    } // use $pull to remove comment id from comments array
+  }, err => {
     if (err) {
-      req.flash('error', 'Couldn\'t delete comment.');
+      req.flash('error', `Error removing association from campground`);
     } else {
-      req.flash('success', 'Comment deleted successfully.');
+      // remove comment from db. req.comment loaded by ensureCommentAuthor
+      req.comment.remove(err => {
+        if (err) {
+          req.flash('error', 'Couldn\'t delete comment.');
+        } else {
+          req.flash('success', 'Comment deleted successfully.');
+        }
+        res.redirect(`/campgrounds/${req.params.id}`);
+      });
     }
-    res.redirect(`/campgrounds/${req.params.id}`);
   });
 });
 
