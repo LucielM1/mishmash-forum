@@ -1,10 +1,10 @@
 <% include ../partials/header %>
     <div class="jumbotron">
       <div class="container">
-        <h1><i class="fab fa-pagelines"></i> Campgrounds</h1>
-        <p>View our hand-picked campgrounds from all over the world</p>
+        <h1><span class="glyphicon glyphicon-tent"></span> Campgrounds</h1>
+        <p>View our community-picked campgrounds from all over the world/p>
         <p>
-          <a class="btn btn-success btn-lg" href="/campgrounds/new">Add a new campground</a>
+          <a class="btn btn-success btn-lg" href="/campgrounds/new">Tell us about one</a>
         </p>
       </div>
     </div>
@@ -17,7 +17,7 @@
       <% } %>
       <% campgrounds.forEach((campground, index) => { %>
         <div class="col-sm-6 col-md-3">
-          <div class="thumbnail">
+          <div class="thumbnail shadow">
             <img src="<%= campground.image %>" alt="<%= campground.name %>">
             <div class="caption">
               <h4><%= campground.name %></h4>
