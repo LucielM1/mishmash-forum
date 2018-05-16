@@ -12,6 +12,9 @@ router.get('/register', middleware.ensureNotAuthenticated, (req, res) => res.ren
 
 router.post('/register', middleware.ensureNotAuthenticated, (req, res) => {
   let user = new User({username: req.body.username});
+  if (req.body.admincode === process.env.ADMIN_CODE) {
+    user.isAdmin = true;
+  }
   User.register(user, req.body.password, (err, user) => {
     if (err) {
       req.flash('error', err.message);

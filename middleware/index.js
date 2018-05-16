@@ -34,8 +34,8 @@ module.exports.ensureCampgroundAuthor = function (req, res, next) {
       req.flash('error', 'Couldn\'t retrieve campground.');
       res.redirect('/campgrounds');
     } else {
-      // is user the campground's author?
-      if (campground.author.id.equals(req.user._id)) {
+      // is user the campground's author or is user an admin?
+      if (req.user.isAdmin || campground.author.id.equals(req.user._id)) {
         // set request obj to retrieved campground to use in routes
         req.campground = campground;
         return next();
@@ -52,8 +52,8 @@ module.exports.ensureCommentAuthor = function (req, res, next) {
       req.flash('error', 'Couldn\'t retrieve comment.');
       res.redirect(`/campgrounds/${req.params.id}`);
     } else {
-      // is user the comment's author?
-      if (comment.author.id.equals(req.user._id)) {
+      // is user the comment's author or is user an admin?
+      if (req.user.isAdmin || comment.author.id.equals(req.user._id)) {
         // set request obj to retrieved campground to use in routes
         req.comment = comment;
         return next();
@@ -62,4 +62,14 @@ module.exports.ensureCommentAuthor = function (req, res, next) {
       res.redirect(`/campgrounds/${req.params.id}`);
     }
   });
+};
+
+// can be used on create/update/delete routes to enforce read only to non-admin usres
+module.exports.ensureAdmin = function (req, res, next) {
+  if (req.user.isAdmin) {
+    next();
+  } else {
+    req.flash('error', 'This site is read only for the moment.');
+    res.redirect('back');
+  }
 };

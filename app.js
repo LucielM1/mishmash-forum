@@ -26,12 +26,12 @@ app.locals.moment = moment;
 const port = process.env.PORT || 3000;
 
 // Db config
-const databaseUri = process.env.MONGODB_URI || 'mongodb://localhost/yelpcampdb';
+const databaseUri = process.env.DATABASE_URI || 'mongodb://localhost/yelpcampdb';
 mongoose.connect(databaseUri);
 
 // Passport config
 app.use(require('express-session')({
-  secret: process.env.SESSIONSECRET,
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false
 }));

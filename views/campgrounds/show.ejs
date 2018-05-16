@@ -20,7 +20,7 @@
             <h4><a href=""><%= campground.name %></a></h4>
             <p><%= campground.description %></p>
             <p><em>Submitted by <strong><%= campground.author.username %></strong> <%= moment(campground.created).fromNow() %></em></p>
-            <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
+            <% if (currentUser && (currentUser.isAdmin || campground.author.id.equals(currentUser._id))) { %>
               <a href="/campgrounds/<%= campground.id %>/edit" class="btn btn-sm btn-warning">Edit</a>
               <form class="form-inline" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
                 <button class="btn btn-sm btn-danger">Delete</button>
@@ -70,7 +70,7 @@
                 <strong><span class="glyphicon glyphicon-user" aria-hidden="true"></span><%= comment.author.username %></strong>
                 <span class="pull-right"><%= moment(comment.created).fromNow() %></span>
                 <p><%= comment.text %></p>
-                <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
+                <% if (currentUser && (currentUser.isAdmin || comment.author.id.equals(currentUser._id))) { %>
                   <!--Edit and delete buttons-->
                   <a class="btn btn-xs btn-warning" role="button" data-toggle="collapse" href="#collapseEdit<%= comment._id %>"
                   aria-expanded="false" aria-controls="collapse<%= comment._id %>">Edit</a>
