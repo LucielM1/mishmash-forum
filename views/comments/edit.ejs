@@ -4,12 +4,13 @@
     <div class="row">
       <h1 class="text-center">Edit comment</h1>
       <section class="form-block">
-        <form action="/campgrounds/<%= campgroundId %>/comments/<%= comment._id %>?_method=PUT" method="POST">
+        <form id="edit-comment-form" action="/campgrounds/<%= campgroundId %>/comments/<%= comment._id %>?_method=PUT" method="POST">
           <div class="form-group">
-            <input class="form-control" type="text" name="comment[text]" value="<%= comment.text %>" required>
+            <textarea class="form-control" name="comment[text]" form="edit-comment-form" rows="5" cols="70" required><%= comment.text %></textarea>
           </div>
-          <button class="btn btn-primary btn-lg btn-block">Submit</button>
-          <a href="/campgrounds">Back to campgrounds list</a>
+          <button class="btn btn-success btn-lg btn-block">Save</button>
+          <hr>
+          <a href="/campgrounds">Back to campgrounds</a>
         </form>
       </section>
     </div>
