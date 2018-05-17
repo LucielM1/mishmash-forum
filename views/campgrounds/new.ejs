@@ -4,9 +4,9 @@
     <div class="row">
       <h1 class="text-center">Create a new campground</h1>
       <section class="form-block">
-        <form action="/campgrounds" method="POST">
+        <form id="new-campground-form" action="/campgrounds" method="POST" enctype="multipart/form-data">
           <div class="form-group">
-            <label for="input-name">Name</label>
+            <label for="input-name">Campground name</label>
             <input id="input-name" class="form-control" type="text" name="name" required>
           </div>
           <div class="form-group">
@@ -14,9 +14,13 @@
             <input id="input-location" class="form-control" type="text" name="location" required>
           </div>
           <div class="form-group">
-            <label for="input-image">Image url</label>
-            <input id="input-image" class="form-control" type="text" name="image" required>
+            <label for="input-imageLocal">Upload image file</label>
+            <input id="input-imageLocal" class="image-group" type="file" name="imageLocal" accept="image/*">
           </div>
+          <!-- <div class="form-group">
+            <label for="input-imageExternal">or use external image url</label>
+            <input id="input-imageExternal" class="form-control image-group" type="text" name="imageExternal">
+          </div> -->
           <div class="form-group">
             <label for="input-cost">Cost per night</label>
             <input id="input-cost" class="form-control" type="number" name="cost" min="0.00" step="0.01" required>

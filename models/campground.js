@@ -5,7 +5,10 @@ const mongoose = require('mongoose');
 const campgroundSchema = new mongoose.Schema({
   name: String,
   cost: Number,
-  image: String,
+  image: {
+    id: String,
+    url: String
+  },
   description: String,
   location: String,
   lat: Number,

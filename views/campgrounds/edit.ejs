@@ -4,26 +4,30 @@
     <div class="row">
       <h1 class="text-center">Edit <%= campground.name %></h1>
       <section class="form-block">
-        <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST">
+        <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
           <div class="form-group">
             <label for="input-name">Name</label>
-            <input id="input-name" class="form-control" type="text" name="campground[name]" value="<%= campground.name %>" required>
+            <input id="input-name" class="form-control" type="text" name="name" value="<%= campground.name %>" required>
           </div>
           <div class="form-group">
             <label for="input-location">Location</label>
-            <input id="input-location" class="form-control" type="text" name="campground[location]" value="<%= campground.location %>" required>
+            <input id="input-location" class="form-control" type="text" name="location" value="<%= campground.location %>" required>
           </div>
           <div class="form-group">
-            <label for="input-image">Image url</label>
-            <input id="input-image" class="form-control" type="text" name="campground[image]" value="<%= campground.image %>" required>
+            <label for="input-imageLocal">Image file</label>
+            <input id="input-imageLocal" class="image-group" type="file" name="imageLocal" accept="image/*">
           </div>
+          <!-- <div class="form-group">
+            <label for="input-imageExternal">Image url</label>
+            <input id="input-imageExternal" class="form-control image-group" type="text" name="imageExternal" value="<%= campground.imageExternal %>">
+          </div> -->
           <div class="form-group">
             <label for="input-cost">Cost</label>
-            <input id="input-cost" class="form-control" type="number" name="campground[cost]" value="<%= campground.cost %>" min="0.00" step="0.01" required>
+            <input id="input-cost" class="form-control" type="number" name="cost" value="<%= campground.cost %>" min="0.00" step="0.01" required>
           </div>
           <div class="form-group">
             <label for="input-description">Description</label>
-            <input id="input-description" class="form-control" type="text" name="campground[description]" value="<%= campground.description %>" required>
+            <input id="input-description" class="form-control" type="text" name="description" value="<%= campground.description %>" required>
           </div>
           <button class="btn btn-success btn-lg btn-block">Submit</button>
           <hr>
