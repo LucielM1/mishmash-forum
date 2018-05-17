@@ -4,6 +4,25 @@ $(document).ready(function () {
     $(".flash-messages").fadeOut("slow");
   });
 
+  // ==================== bootstrap show/hide password ==================== //
+  // adapted from https://bootsnipp.com/snippets/featured/show-password
+  $("#input-password").on("keyup",function () {
+    console.log('keyup')
+    if ($(this).val()) {
+      $(".glyphicon-eye-open").show();
+    } else {
+      $(".glyphicon-eye-open").hide();
+    }
+  });
+
+  $(".glyphicon-eye-open").mousedown(function () {
+    $("#input-password").attr('type', 'text');
+  }).mouseup(function () {
+    $("#input-password").attr('type', 'password');
+  }).mouseout(function () {
+    $("#input-password").attr('type', 'password');
+  });
+
 // ==================== jquery-validation ==================== //
 // to use require_from_group https://jqueryvalidation.org/require_from_group-method/
 // TODO: revive if/when alternative external image url implemented

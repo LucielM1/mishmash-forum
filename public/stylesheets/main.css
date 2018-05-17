@@ -259,6 +259,22 @@ a:hover {
   margin: 25px auto;
 }
 
+.password{
+  position: relative;
+}
+
+.password input[type="password"]{
+  padding-right: 30px;
+}
+
+.password .glyphicon,#input-password .glyphicon {
+  display: none;
+  right: 15px;
+  position: absolute;
+  top: 36px;
+  cursor:pointer;
+}
+
 .comments-new-section {
   border-left: 5px solid #00C851;
 }
