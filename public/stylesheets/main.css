@@ -243,6 +243,7 @@ a:hover {
   top: 62px;
   z-index: 2;
   text-align: center;
+  width: 65%;
 }
 
 .show-campground {

@@ -58,11 +58,13 @@
         <% if (successMessages && successMessages.length > 0) { %>
           <div class="alert alert-success" role="alert">
             <%= successMessages %>
+            <a href="#" style="btn" class="pull-right">Close</a>
           </div>
         <% } %>
         <% if (errorMessages && errorMessages.length > 0) { %>
           <div class="alert alert-danger" role="alert">
             <%= errorMessages %>
+            <a href="#" style="btn" class="pull-right">Close</a>
           </div>
         <% } %>
       </div>
