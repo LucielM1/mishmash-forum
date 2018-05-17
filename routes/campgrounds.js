@@ -82,7 +82,7 @@ router.post('/', middleware.ensureAuthenticated, upload.single('imageLocal'), (r
   // start with geocoder
   geocoder.geocode(req.body.location, (err, data) => {
     if (err || data.length === 0) {
-      req.flash('error', 'Invalid location.');
+      req.flash('error', err);
       return res.redirect('campgrounds');
     }
     let lat = data[0].latitude;
@@ -140,7 +140,7 @@ router.put('/:id', middleware.ensureAuthenticated, middleware.ensureCampgroundAu
   // start with geocoder
   geocoder.geocode(req.body.location, (err, data) => {
     if (err || data.length === 0) {
-      req.flash('error', 'Invalid location.');
+      req.flash('error', err);
       return res.redirect('back');
     }
     let updateData = {
