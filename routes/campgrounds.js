@@ -146,18 +146,10 @@ router.put('/:id', middleware.ensureAuthenticated, middleware.ensureCampgroundAu
     let updateData = {
       name: req.body.name,
       cost: req.body.cost,
-      // image: {
-      //   id: req.campground.image.id,
-      //   url: req.campround.image.url
-      // },
       description: req.body.description,
       location: data[0].formattedAddress,
       lat: data[0].latitude,
-      lng: data[0].longitude,
-      author: {
-        id: req.user._id,
-        username: req.user.username
-      }
+      lng: data[0].longitude
     };
     // new file update, upload to cloudinary and delete old one
     if (req.file) {
