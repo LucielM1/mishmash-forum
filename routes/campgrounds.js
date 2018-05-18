@@ -11,7 +11,6 @@ const cloudinary = require('cloudinary');
 const geocoder = NodeGeocoder({
   provider: 'google',
   httpAdapter: 'https',
-  // apiKey: process.env.GOOGLEGEOCODER_API_KEY,
   formatter: null
 });
 
@@ -82,8 +81,8 @@ router.post('/', middleware.ensureAuthenticated, upload.single('imageLocal'), (r
   // start with geocoder
   geocoder.geocode(req.body.location, (err, data) => {
     if (err || data.length === 0) {
-      req.flash('error', err);
-      return res.redirect('campgrounds');
+      req.flash('error', 'Invalid location');
+      return res.redirect('/campgrounds/new');
     }
     let lat = data[0].latitude;
     let lng = data[0].longitude;
@@ -140,8 +139,8 @@ router.put('/:id', middleware.ensureAuthenticated, middleware.ensureCampgroundAu
   // start with geocoder
   geocoder.geocode(req.body.location, (err, data) => {
     if (err || data.length === 0) {
-      req.flash('error', err);
-      return res.redirect('back');
+      req.flash('Invalid location', err);
+      return res.redirect('/campgrounds/new');
     }
     let updateData = {
       name: req.body.name,
