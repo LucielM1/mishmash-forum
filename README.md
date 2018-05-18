@@ -98,7 +98,8 @@
   You should now be able to access the app at localhost:3000
 
   ## TODO
-  None at the moment. Work in progress...
+  * ~~Handle non-existing routes~~
+  (Other enhancements will be added here once identified or complete)
 
   ---
 
