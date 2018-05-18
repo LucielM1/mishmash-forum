@@ -140,7 +140,7 @@ router.put('/:id', middleware.ensureAuthenticated, middleware.ensureCampgroundAu
   geocoder.geocode(req.body.location, (err, data) => {
     if (err || data.length === 0) {
       req.flash('Invalid location', err);
-      return res.redirect('/campgrounds/new');
+      return res.redirect('/:id/edit');
     }
     let updateData = {
       name: req.body.name,
