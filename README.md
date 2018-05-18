@@ -1,15 +1,36 @@
-# WORK IN PROGRESS
-
 # YelpCamp
 The bulk of this *'Yelp-like'* CRUD web app was built during [Colt Steele's The Web Developer Bootcamp](https://www.udemy.com/the-web-developer-bootcamp/) and I further enhanced and styled where I saw fit.
 
+## Key features
+This is a campground sharing app. In a nutshell:
+#### Campground
+* A campground is represented by
+  * A name
+  * A geocodable location
+  * An uploaded image file
+  * A cost per night and description.
+  * A list of comments
+
+
+
+#### Users
+* Can browse all campgrounds and comments
+* Can search a campground by its name (fuzzy search)
+* Upon signing up, can create/edit/delete campgrounds and comments
+* Cannot edit or delete campgrounds or comments which are not their own
+
+#### Admins
+* Can create/edit delete campgrounds and comments freely
+
 ## Key technologies
 * MongoDB / Mongoose
-* Node.js / Express with RESTful routing
+* Node.js / Express
+* RESTful routing
 * Passport authentication via Passport-Local-Mongoose
 * HTLM5 / CSS3 / EJS / Bootstrap 3
 * Google Maps API for geocoding and map
 * Cloudinary API for storing uploaded images
+[Full list of Node packages](./blob/master/package.json)
 
 ## Local setup
 **Please note that in order to run this app locally, you must satisfy the following dependencies:**
@@ -18,7 +39,7 @@ The bulk of this *'Yelp-like'* CRUD web app was built during [Colt Steele's The 
 * Obtain a [Google Maps API Key](https://developers.google.com/maps/documentation/javascript/get-api-key)
 * Register for a [Cloudinary account](https://cloudinary.com/users/register/free)
 
-### Cloning and installing dependencies
+#### Cloning and installing dependencies
 ```
 git clone https://github.com/jbagio/yelp-camp.git
 ```
@@ -31,9 +52,9 @@ cd yelp-camp
 npm install
 ```
 
-### Environment variables
+#### Environment variables
 
-Add the following variables to your `.env` file.
+Add the following variables via `export` or a `.env` file (I prefer the latter).
 
 The key that admin users will need to input while registering.
 ```
@@ -64,3 +85,11 @@ CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_key
 CLOUDINARY_API_SECRET=your_secret
 ```
+
+#### Running the app
+```
+node app.js
+```
+You should now be able to access the app at localhost:3000
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE.txt)
