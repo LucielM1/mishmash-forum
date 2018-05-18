@@ -132,7 +132,7 @@ article.landing {
 body {
   font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
-  /* background: #efefef; */
+  background-color: #f9f7f0;
 }
 
 body.black-bg {
@@ -200,7 +200,7 @@ a:hover {
   background-size: cover;
   background-position: 50% 92%;
   background-repeat: no-repeat;
-  height: 45rem;
+  height: 42rem;
 }
 
 .jumbotron .container {
