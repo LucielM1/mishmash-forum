@@ -29,17 +29,18 @@
         <!--Comments-->
         <div class="well">
           <div class="text-right">
-            <a class="btn btn-success pull-right" role="button" data-toggle="collapse" href="#comment-section" aria-expanded="false" aria-controls="collapseComment">
-              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add comment</a>
-            </a>
+            <% if(currentUser) { %>
+              <a class="btn btn-success pull-right" role="button" data-toggle="collapse" href="#comment-section" aria-expanded="false" aria-controls="collapseComment">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add comment</a>
+              </a>
+            <% } %>
           </div>
           <h4><strong>Comments <span class="glyphicon glyphicon glyphicon-comment" aria-hidden="true"></span></strong></h4>
           <div class="collapse" id="comment-section">
             <div class="well">
               <% if(!currentUser) { %>
                 <h5>You need to sign in before adding a comment. <a href="/login">Click here</a> to sign in.</h5>
-              <% } %>
-              <% if(currentUser) { %>
+              <% } else {%>
                 <!--New comment form-->
                 <h4>New comment <span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></h4>
                 <form id="add-comment-form" action="/campgrounds/<%= campground._id %>/comments" method="POST">
