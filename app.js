@@ -8,6 +8,7 @@ const flash = require('connect-flash');
 const moment = require('moment');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const helmet = require('helmet');
 
 // Project imports
 const User = require('./models/user');
@@ -17,11 +18,12 @@ const commentsRoutes = require('./routes/comments');
 
 // App config
 const app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(`${__dirname}/public`));
 app.use(methodOverride('_method'));
 app.use(flash());
+app.use(helmet());
 app.locals.moment = moment;
 const port = process.env.PORT || 3000;
 
