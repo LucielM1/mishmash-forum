@@ -1,7 +1,7 @@
 // Packages
 const mongoose = require('mongoose');
 
-// Schema
+// Scehma 
 const campgroundSchema = new mongoose.Schema({
   name: String,
   cost: Number,

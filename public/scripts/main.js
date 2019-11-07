@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  // flash-messages close btn
+  // flash-messages close btnn
   $(".flash-messages a").click(function () {
     $(".flash-messages").fadeOut("slow");
   });
