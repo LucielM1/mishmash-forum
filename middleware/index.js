@@ -64,7 +64,7 @@ module.exports.ensureCommentAuthor = function (req, res, next) {
   });
 };
 
-// can be used on create/update/delete routes to enforce read only to non-admin usres
+// can be used on create/update/delete routes to enforce read only to non-admin users
 module.exports.ensureAdmin = function (req, res, next) {
   if (req.user.isAdmin) {
     next();

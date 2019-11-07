@@ -11,6 +11,7 @@ const cloudinary = require('cloudinary');
 const geocoder = NodeGeocoder({
   provider: 'google',
   httpAdapter: 'https',
+  apiKey: 'AIzaSyABhGOxFOmRS6joEx45blP_SD4rgalgjwM',
   formatter: null
 });
 
@@ -81,13 +82,12 @@ router.post('/', middleware.ensureAuthenticated, upload.single('imageLocal'), (r
   // start with geocoder
   geocoder.geocode(req.body.location, (err, data) => {
     if (err || data.length === 0) {
-      req.flash('error', 'Invalid location');
+      req.flash('error', err.message);
       return res.redirect('/campgrounds/new');
     }
     let lat = data[0].latitude;
     let lng = data[0].longitude;
     let location = data[0].formattedAddress;
-    // if cloudinary
     // cloudinary
     if (req.file) {
       cloudinary.v2.uploader.upload(req.file.path, { transformation: [
@@ -139,7 +139,7 @@ router.put('/:id', middleware.ensureAuthenticated, middleware.ensureCampgroundAu
   // start with geocoder
   geocoder.geocode(req.body.location, (err, data) => {
     if (err || data.length === 0) {
-      req.flash('error', 'Invalid location');
+      req.flash('error', err.message);
       return res.redirect(`/campgrounds/${req.params.id}/edit`);
     }
     let updateData = {

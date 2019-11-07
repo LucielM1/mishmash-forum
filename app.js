@@ -28,12 +28,16 @@ app.locals.moment = moment;
 const port = process.env.PORT || 3000;
 
 // Db config
-const databaseUri = process.env.DATABASE_URI || 'mongodb://localhost/yelpcampdb';
+const databaseUri = process.env.DATABASE_URI || "mongodb://localhost/yelp_db_v7";
 mongoose.connect(databaseUri);
+
+// app.use(express.cookieParser('your secret here'));
+// app.use(express.session());
 
 // Passport config
 app.use(require('express-session')({
-  secret: process.env.SESSION_SECRET,
+  // secret: process.env.SESSION_SECRET,
+  secret: "vtcrocks",
   resave: false,
   saveUninitialized: false
 }));
@@ -76,4 +80,4 @@ app.use((req, res, next) => {
 });
 
 // Start server
-app.listen(port, () => console.log(`Yelp Camp server listening on port ${port}`));
+app.listen(port, () => console.log(`Server listening on port ${port}`));
