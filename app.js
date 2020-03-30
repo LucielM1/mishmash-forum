@@ -13,7 +13,7 @@ const helmet = require('helmet');
 // Project imports
 const User = require('./models/user');
 const indexRoutes = require('./routes/index');
-const campgroundsRoutes = require('./routes/campgrounds');
+const questionsRoutes = require('./routes/questions');
 const commentsRoutes = require('./routes/comments');
 
 // App config
@@ -58,8 +58,8 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/', indexRoutes);
-app.use('/campgrounds', campgroundsRoutes);
-app.use('/campgrounds/:id/comments', commentsRoutes);
+app.use('/questions', questionsRoutes);
+app.use('/questions/:id/comments', commentsRoutes);
 app.use((req, res, next) => {
   res.status(404);
 

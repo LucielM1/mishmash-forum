@@ -2,15 +2,15 @@
 
   <div class="container">
     <div class="row">
-      <h1 class="text-center">Add a new comment to <%= campground.name %></h1>
+      <h1 class="text-center">Add a new comment to <%= question.name %></h1>
       <section class="form-block">
-        <form id="add-comment-form" action="/campgrounds/<%= campground._id %>/comments" method="POST">
+        <form id="add-comment-form" action="/questions/<%= question._id %>/comments" method="POST">
           <div class="form-group">
             <textarea class="form-control" name="comment[text]" form="add-comment-form" rows="5" cols="70" required></textarea>
           </div>
           <button class="btn btn-success btn-lg btn-block">Submit</button>
           <hr>
-          <a href="/campgrounds">Back to campgrounds</a>
+          <a href="/questions">Back to questions</a>
         </form>
       </section>
     </div>

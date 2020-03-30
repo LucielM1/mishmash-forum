@@ -1,29 +1,28 @@
 <% include ../partials/header %>
     <div class="jumbotron">
       <div class="container">
-        <h1><span class="glyphicon glyphicon-tent"></span> Campgrounds</h1>
-        <p>View our exploits from all over India!</p>
+        <h1><span class="glyphicon glyphicon-tent"></span>Doubts?</h1>
+        <p>SOlved by our users from around the world!</p>
         <p>
-          <a class="btn btn-success btn-lg" href="/campgrounds/new">Add a new one</a>
+          <a class="btn btn-success btn-lg" href="/questions/new">Add a new one</a>
         </p>
       </div>
     </div>
     <div class="container">
-      <div id="campgrounds-gallery" class="row text-center">
+      <div id="questions-gallery" class="row text-center">
       <% if (typeof searchMessage !== 'undefined') { %>
         <div class="col-md-12">
           <h4><%= searchMessage %></h4>
         </div>
       <% } %>
-      <% campgrounds.forEach((campground, index) => { %>
+      <% questions.forEach((question, index) => { %>
         <div class="col-sm-6 col-md-4">
           <div class="thumbnail shadow">
-            <img src="<%= campground.image.url %>" alt="<%= campground.name %>">
             <div class="caption">
-              <h4><%= campground.name %></h4>
+              <h4><%= question.name %></h4>
             </div>
             <p>
-              <a href="/campgrounds/<%= campground._id %>" class="btn btn-success">More info</a>
+              <a href="/questions/<%= question._id %>" class="btn btn-success">More info</a>
             </p>
           </div>
         </div>

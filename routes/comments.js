@@ -1,30 +1,30 @@
 const express = require('express');
 const router = express.Router({mergeParams: true});
-const Campground = require('../models/campground');
+const Question = require('../models/question');
 const Comment = require('../models/comment');
 const middleware = require('../middleware');
 
 // New
 router.get('/new', middleware.ensureAuthenticated, (req, res) => {
-  Campground.findById(req.params.id, (err, campground) => {
-    if (err || !campground) {
-      req.flash('error', 'Couldn\'t retrieve campground.');
-      res.redirect('/campgrounds');
+  Question.findById(req.params.id, (err, question) => {
+    if (err || !question) {
+      req.flash('error', 'Couldn\'t retrieve question.');
+      res.redirect('/questions');
     } else {
-      res.render('comments/new', {campground});
+      res.render('comments/new', {question});
     }
   });
 });
 
 // Create
 router.post('/', middleware.ensureAuthenticated, (req, res) => {
-  // get campground to add comment to
-  Campground.findById(req.params.id, (err, campground) => {
-    if (err || !campground) {
-      req.flash('error', 'Couldn\'t retrieve campground.');
-      res.redirect('/campgrounds');
+  // get question to add comment to
+  Question.findById(req.params.id, (err, question) => {
+    if (err || !question) {
+      req.flash('error', 'Couldn\'t retrieve question.');
+      res.redirect('/questions');
     } else {
-      // campground found so add new comment to the DB
+      // question found so add new comment to the DB
       Comment.create(req.body.comment, (err, comment) => {
         if (err) {
           req.flash('error', 'Couldn\'t add comment.');
@@ -35,11 +35,11 @@ router.post('/', middleware.ensureAuthenticated, (req, res) => {
           comment.author.username = req.user.username;
           // save comment to db
           comment.save();
-          // add comment to campground and save to db
-          campground.comments.push(comment);
-          campground.save();
+          // add comment to question and save to db
+          question.comments.push(comment);
+          question.save();
           req.flash('success', 'Comment added successfully.');
-          res.redirect(`/campgrounds/${campground._id}`);
+          res.redirect(`/questions/${question._id}`);
         }
       });
     }
@@ -47,36 +47,36 @@ router.post('/', middleware.ensureAuthenticated, (req, res) => {
 });
 
 // Edit
-router.get('/:comment_id/edit', middleware.ensureAuthenticated, middleware.ensureCampgroundExists, middleware.ensureCommentAuthor, (req, res) => {
-  // first call to ensureCampgroundExists to avoid campground id tampering in url
-  // ensureCommentAuthor places retrieved comment in req.campground so no need for 2nd db roundtrip
-  res.render('comments/edit', {campgroundId: req.params.id, comment: req.comment});
+router.get('/:comment_id/edit', middleware.ensureAuthenticated, middleware.ensureQuestionExists, middleware.ensureCommentAuthor, (req, res) => {
+  // first call to ensureQuestionExists to avoid question id tampering in url
+  // ensureCommentAuthor places retrieved comment in req.question so no need for 2nd db roundtrip
+  res.render('comments/edit', {questionId: req.params.id, comment: req.comment});
 });
 
 // Update
 router.put('/:comment_id', middleware.ensureAuthenticated, middleware.ensureCommentAuthor, (req, res) => {
-  // req.body.campground.description = req.sanitize(req.body.campground.description);
+  // req.body.question.description = req.sanitize(req.body.question.description);
   Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, (err, comment) => {
     if (err) {
       req.flash('error', 'Couldn\'t update comment.');
       res.redirect('back');
     } else {
       req.flash('success', 'Comment updated successfully.');
-      res.redirect(`/campgrounds/${req.params.id}`);
+      res.redirect(`/questions/${req.params.id}`);
     }
   });
 });
 
 // Destroy
-router.delete('/:comment_id', middleware.ensureAuthenticated, middleware.ensureCampgroundExists, middleware.ensureCommentAuthor, (req, res) => {
+router.delete('/:comment_id', middleware.ensureAuthenticated, middleware.ensureQuestionExists, middleware.ensureCommentAuthor, (req, res) => {
   // remove comment refs
-  Campground.findByIdAndUpdate(req.params.id, {
+  Question.findByIdAndUpdate(req.params.id, {
     $pull: {
       comments: req.comment.id
     } // use $pull to remove comment id from comments array
   }, err => {
     if (err) {
-      req.flash('error', `Error removing association from campground`);
+      req.flash('error', `Error removing association from question`);
     } else {
       // remove comment from db. req.comment loaded by ensureCommentAuthor
       req.comment.remove(err => {
@@ -85,7 +85,7 @@ router.delete('/:comment_id', middleware.ensureAuthenticated, middleware.ensureC
         } else {
           req.flash('success', 'Comment deleted successfully.');
         }
-        res.redirect(`/campgrounds/${req.params.id}`);
+        res.redirect(`/questions/${req.params.id}`);
       });
     }
   });

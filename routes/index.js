@@ -21,8 +21,8 @@ router.post('/register', middleware.ensureNotAuthenticated, (req, res) => {
       return res.redirect('/register');
     }
     passport.authenticate('local')(req, res, () => {
-      req.flash('success', `Welcome to YelpCamp, ${user.username}`);
-      res.redirect('/campgrounds');
+      req.flash('success', `Welcome to mish-forum, ${user.username}`);
+      res.redirect('/questions');
     });
   });
 });
@@ -31,7 +31,7 @@ router.post('/register', middleware.ensureNotAuthenticated, (req, res) => {
 router.get('/login', middleware.ensureNotAuthenticated, (req, res) => res.render('login', {currentPage: 'login'}));
 
 router.post('/login', middleware.ensureNotAuthenticated, passport.authenticate('local', {
-  successRedirect: '/campgrounds',
+  successRedirect: '/questions',
   failureRedirect: '/login',
   failureFlash: true
 }), (req, res) => {
@@ -43,7 +43,7 @@ router.post('/login', middleware.ensureNotAuthenticated, passport.authenticate('
 router.get('/logout', middleware.ensureAuthenticated, (req, res) => {
   req.logout();
   req.flash('success', 'Logged out successfully.');
-  res.redirect('/campgrounds');
+  res.redirect('/questions');
 });
 
 module.exports = router;

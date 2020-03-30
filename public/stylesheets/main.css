@@ -91,19 +91,19 @@ article.landing {
   background-image: url(https://images.unsplash.com/photo-1500261940006-86bb61e51e52?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=901f16f5385aff4bc43f5b4adb311a1e&auto=format&fit=crop&w=2850&q=80)
 }
 .slideshow li:nth-child(2) {
-  background-image: url(https://images.unsplash.com/photo-1445308394109-4ec2920981b1?ixlib=rb-0.3.5&s=73115e54fa3d099fcb2d92ccf12eee41&auto=format&fit=crop&w=2706&q=80);
+  background-image: url(https://www.studying-in-spain.com/wp-content/uploads/2013/08/students-life-spain.jpg);
   animation-delay: 10s;
 }
 .slideshow li:nth-child(3) {
-  background-image: url(https://images.unsplash.com/photo-1445307806294-bff7f67ff225?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=fc6ce87dd15dab5e29cb7173eeab67aa&auto=format&fit=crop&w=2706&q=80);
+  background-image: url(https://previews.123rf.com/images/zinkevych/zinkevych1802/zinkevych180201157/95388496-excited-programmers-emotional-happy-young-programmers-feeling-excited-while-sitting-together-in-fron.jpg);
   animation-delay: 20s;
 }
 .slideshow li:nth-child(4) {
-  background-image: url(https://images.unsplash.com/photo-1444124818704-4d89a495bbae?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a128b113cb6090ba5d87ee29fc3a7869&auto=format&fit=crop&w=2850&q=80);
+  background-image: url(https://media-exp1.licdn.com/dms/image/C4D12AQGcSFUaNb9vHw/article-cover_image-shrink_600_2000/0?e=1586995200&v=beta&t=Ks6J2n5ZlQtOOEI_twkiZV1LBvT42LoreHbHSfI8Z44);
   animation-delay: 30s;
 }
 .slideshow li:nth-child(5) {
-  background-image: url(https://images.unsplash.com/photo-1487730116645-74489c95b41b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=aa6e65fcad07b9a68420c430034f84f2&auto=format&fit=crop&w=11520&q=80);
+  background-image: url(https://media.gettyimages.com/photos/happy-male-programmers-giving-each-other-highfive-in-the-office-picture-id1151542251);
   animation-delay: 40s;
 }
 

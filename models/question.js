@@ -2,17 +2,9 @@
 const mongoose = require('mongoose');
 
 // Scehma 
-const campgroundSchema = new mongoose.Schema({
+const questionSchema = new mongoose.Schema({
   name: String,
-  cost: Number,
-  image: {
-    id: String,
-    url: String
-  },
   description: String,
-  location: String,
-  lat: Number,
-  lng: Number,
   author: {
     id: {
       type: mongoose.Schema.Types.ObjectId,
@@ -33,4 +25,4 @@ const campgroundSchema = new mongoose.Schema({
 });
 
 // Exports
-module.exports = mongoose.model('Campground', campgroundSchema);
+module.exports = mongoose.model('Question', questionSchema);
